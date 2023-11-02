@@ -7,5 +7,8 @@ RUN echo $PATH
 RUN curl -o Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -p /tools/miniconda3 -b
 RUN rm -f Miniconda3-latest-Linux-x86_64.sh \
-    && echo "Running $(/tools/miniconda3/bin/conda --version)" && \
-    conda init bash
+    && echo "Running $(/tools/miniconda3/bin/conda --version)"
+
+
+RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-19.03.15.tgz | \
+    sudo tar zxvf - --strip 1 -C /usr/bin docker/docker
