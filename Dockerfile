@@ -1,14 +1,5 @@
-FROM codercom/code-server:4.18.0-bullseye
-RUN sudo mkdir /home/coder/.conda && sudo mkdir /tools && sudo chown coder:coder /tools 
-ENV PATH="/tools/miniconda3/bin:$PATH"
-ARG PATH="/tools/miniconda3/bin:$PATH"
-RUN echo $PATH
+FROM debian:12
 
-RUN curl -o Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -p /tools/miniconda3 -b
-RUN rm -f Miniconda3-latest-Linux-x86_64.sh \
-    && echo "Running $(/tools/miniconda3/bin/conda --version)"
-
-
-RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-19.03.15.tgz | \
-    sudo tar zxvf - --strip 1 -C /usr/bin docker/docker
+RUN mkdir /downloads
+RUN curl -o /downloads/Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN curl -o docker-19.03.15.tgz /Downloads/ https://download.docker.com/linux/static/stable/x86_64/docker-19.03.15.tgz 
