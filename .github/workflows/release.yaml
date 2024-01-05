@@ -1,0 +1,16 @@
+name: Release build
+
+env:
+  GCR_IMAGE_BASE: ghcr.io/${{ github.repository }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+on:
+  push:
+    tags:
+      - '*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    
+jobs:
+  build-release:
+    uses: rampart-aios/github-actions/.github/workflows/docker-release-build-publish.yaml@main
+  
+  release:
+    uses: rampart-aios/github-actions/.github/workflows/release.yaml@main

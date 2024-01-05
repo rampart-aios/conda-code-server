@@ -1,0 +1,14 @@
+name: Release build
+
+env:
+  GCR_IMAGE_BASE: ghcr.io/${{ github.repository }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    
+jobs:
+  tag:
+    uses: rampart-aios/github-actions/.github/workflows/tag.yaml@main

@@ -1,7 +1,9 @@
 name: Snapshot Build
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    IMAGE_NAME: ${{ github.repository }}
+    REGISTRY: ghcr.io
 on:
   push:
     branches:
@@ -10,16 +12,20 @@ on:
   pull_request:
     branches:
       - develop
-      - main
   workflow_dispatch:
 
 jobs:
   docker:
-    uses: rampart-aios/github-actions/.github/actions/docker-snapshot-build@main
-    with:
-      IMAGE_NAME: ${{ github.repository }}
-      CONTEXT: .
-      DOCKER_FILE: ./docker/Dockerfile.ui
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: build and publish docker snapshot
+        uses: rampart-aios/github-actions/.github/actions/docker-snapshot-build@main
+        with:
+          IMAGE_NAME: ${{ github.repository }}
+          CONTEXT: .
+          # DOCKER_FILE: ./docker/Dockerfile.ui
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     
