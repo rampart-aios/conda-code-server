@@ -13,6 +13,16 @@ on:
 jobs:
   build-release:
     uses: rampart-aios/github-actions/.github/workflows/docker-release-build-publish.yaml@main
-  
+    with:
+      CONTEXT: .
+      DOCKER_FILE: ./Dockerfile
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   release:
-    uses: rampart-aios/github-actions/.github/workflows/release.yaml@main
+    uses: actions/create-release@latest
+    with:
+      tag_name: ${{ github.ref }}
+      release_name: Release ${{ github.ref }}
+      body: Release ${{ github.ref }}
+      draft: false
+      prerelease: false
