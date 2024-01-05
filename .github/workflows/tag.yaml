@@ -1,4 +1,4 @@
-name: Release build
+name: Tag build
 
 env:
   GCR_IMAGE_BASE: ghcr.io/${{ github.repository }}
