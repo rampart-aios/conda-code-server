@@ -18,11 +18,11 @@ jobs:
       DOCKER_FILE: ./Dockerfile
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  release:
-    uses: actions/create-release@latest
-    with:
-      tag_name: ${{ github.ref }}
-      release_name: Release ${{ github.ref }}
-      body: Release ${{ github.ref }}
-      draft: false
-      prerelease: false
+#   release:
+#     uses: actions/create-release@latest
+#     with:
+#       tag_name: ${{ github.ref }}
+#       release_name: Release ${{ github.ref }}
+#       body: Release ${{ github.ref }}
+#       draft: false
+#       prerelease: false
