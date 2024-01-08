@@ -1,8 +1,9 @@
 name: Release build
 
 env:
-  GCR_IMAGE_BASE: ghcr.io/${{ github.repository }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: ghcr.io
 on:
   push:
     tags:
@@ -11,13 +12,20 @@ on:
       - main
     
 jobs:
-  build-release:
-    uses: rampart-aios/github-actions/.github/workflows/docker-release-build-publish.yaml@main
-    with:
-      CONTEXT: .
-      DOCKER_FILE: ./Dockerfile
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  docker: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: build-release
+        uses: rampart-aios/github-actions/.github/actions/docker-release-build-@main
+        with:
+          IMAGE_NAME: ${{ github.repository }}
+          CONTEXT: .
+          DOCKER_FILE: ./Dockerfile
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 #   release:
 #     uses: actions/create-release@latest
 #     with:
