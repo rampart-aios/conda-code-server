@@ -11,13 +11,19 @@ on:
       - main
     
 jobs:
-  build-release:
-    uses: rampart-aios/github-actions/.github/workflows/docker-release-build-publish.yaml@main
-    with:
-      CONTEXT: .
-      DOCKER_FILE: ./Dockerfile
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  docker: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: build-release
+        uses: rampart-aios/github-actions/.github/workflows/docker-release-build-publish.yaml@main
+        with:
+          CONTEXT: .
+          DOCKER_FILE: ./Dockerfile
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 #   release:
 #     uses: actions/create-release@latest
 #     with:
