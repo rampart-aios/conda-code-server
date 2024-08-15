@@ -1,7 +1,7 @@
 FROM debian:12
 # FROM codercom/code-server:4.20.0
 RUN apt-get update \
-  && apt-get install -y curl tar\
+  && apt-get install -y curl tar libxml2 gcc\
   && rm -rf /var/lib/apt/lists/*
 RUN useradd -u 1000 coder
 RUN mkdir /downloads
