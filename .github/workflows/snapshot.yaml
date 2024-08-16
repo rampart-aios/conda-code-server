@@ -20,12 +20,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: build and publish docker snapshot
+      - name: build and publish base image snapshot
+        uses: rampart-aios/github-actions/.github/actions/docker-snapshot-build@main
+        with:
+          IMAGE_NAME: dev-code-server
+          CONTEXT: ./dev-code-server
+          DOCKER_FILE: ./dev-code-server/Dockerfile
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: build and publish init image snapshot
         uses: rampart-aios/github-actions/.github/actions/docker-snapshot-build@main
         with:
           IMAGE_NAME: ${{ github.repository }}
-          CONTEXT: .
-          # DOCKER_FILE: ./docker/Dockerfile.ui
+          CONTEXT: ./cuda-init
+          DOCKER_FILE: ./cuda-init/Dockerfile
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     
