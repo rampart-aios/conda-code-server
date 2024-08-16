@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  docker:
+  build-docker-images:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,7 +23,7 @@ jobs:
       - name: build and publish base image snapshot
         uses: rampart-aios/github-actions/.github/actions/docker-snapshot-build@main
         with:
-          IMAGE_NAME: dev-code-server
+          IMAGE_NAME: ${{ github.repository }}/dev-code-server
           CONTEXT: ./dev-code-server
           DOCKER_FILE: ./dev-code-server/Dockerfile
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -32,7 +32,7 @@ jobs:
       - name: build and publish init image snapshot
         uses: rampart-aios/github-actions/.github/actions/docker-snapshot-build@main
         with:
-          IMAGE_NAME: ${{ github.repository }}
+          IMAGE_NAME: ${{ github.repository }}/cuda-init
           CONTEXT: ./cuda-init
           DOCKER_FILE: ./cuda-init/Dockerfile
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
