@@ -5,7 +5,7 @@ RUN apt-get update \
 RUN useradd -u 1000 coder
 RUN mkdir /downloads
 RUN curl -o /downloads/Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN curl -o /downloads/docker-19.03.15.tgz https://download.docker.com/linux/static/stable/x86_64/docker-19.03.15.tgz 
+RUN curl -o /downloads/docker.tgz  https://download.docker.com/linux/static/stable/x86_64/docker-27.3.1.tgz 
 RUN curl -o /downloads/ollama-linux-amd64.tgz -L https://ollama.com/download/ollama-linux-amd64.tgz
 RUN curl -Lo /downloads/kubectl https://dl.k8s.io/release/v1.31.0/bin/linux/amd64/kubectl
 COPY .bashrc /downloads
